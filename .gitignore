@@ -34,3 +34,4 @@ build/
 
 ### Terraform ###
 .terraform/
+*.exe
