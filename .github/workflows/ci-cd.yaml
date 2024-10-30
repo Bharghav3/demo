@@ -32,11 +32,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t <dockerhub_username>/myapp:latest .
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest .
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push <dockerhub_username>/myapp:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest
 
   test:
     runs-on: ubuntu-latest
