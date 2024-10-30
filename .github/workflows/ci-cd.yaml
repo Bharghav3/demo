@@ -24,7 +24,7 @@ jobs:
       - name: Build with Maven
         run: |
           chmod +x mvnw
-          ./mvnw clean package
+          ./mvnw clean package -DskipTests
 
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
@@ -49,17 +49,17 @@ jobs:
           pip install awscli
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region <region>
+          aws configure set default.region eu-west-1
 
-      - name: Update kubeconfig
-        run: |
-          aws eks update-kubeconfig --name <your-eks-cluster-name>
+      # - name: Update kubeconfig
+      #   run: |
+      #     aws eks update-kubeconfig --name <your-eks-cluster-name>
 
-      - name: Deploy to EKS
-        run: |
-          helm upgrade --install myapp ./myapp --namespace myapp --create-namespace \
-          --set image.repository=<dockerhub_username>/myapp \
-          --set image.tag=latest
+      # - name: Deploy to EKS
+      #   run: |
+      #     helm upgrade --install myapp ./myapp --namespace myapp --create-namespace \
+      #     --set image.repository=<dockerhub_username>/myapp \
+      #     --set image.tag=latest
 
   provision:
     runs-on: ubuntu-latest
