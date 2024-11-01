@@ -7,21 +7,21 @@ resource "aws_vpc" "my_vpc" {
   }
 }
 
-resource "aws_subnet" "public_subnet" {
-  vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = var.public_subnet_cidr
-  availability_zone       = var.public_subnet_az
-  map_public_ip_on_launch = true
+# Example of creating subnets in the VPC module
+resource "aws_subnet" "private_subnet" {
+  vpc_id            = aws_vpc.my_vpc.id
+  cidr_block        = var.private_subnet_cidr_1
+  availability_zone = var.private_subnet_az_1
   tags = {
-    Name = "${var.vpc_name}-public-subnet"
+    Name = "${var.vpc_name}-private-subnet-1"
   }
 }
 
-resource "aws_subnet" "private_subnet" {
+resource "aws_subnet" "private_subnet_2" {
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = var.private_subnet_cidr
-  availability_zone = var.private_subnet_az
+  cidr_block        = var.private_subnet_cidr_2
+  availability_zone = var.private_subnet_az_2
   tags = {
-    Name = "${var.vpc_name}-private-subnet"
+    Name = "${var.vpc_name}-private-subnet-2"
   }
 }

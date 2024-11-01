@@ -12,14 +12,15 @@ provider "aws" {
 }
 
 module "vpc" {
-  source              = "./modules/vpc"
-  cidr_block          = "10.0.0.0/16"
-  vpc_name            = "my-vpc"
-  public_subnet_cidr = "10.0.1.0/24"
-  public_subnet_az   = "eu-west-1a"
-  private_subnet_cidr = "10.0.2.0/24"
-  private_subnet_az   = "eu-west-1a"
+  source                       = "./modules/vpc"
+  cidr_block                   = "10.0.0.0/16"
+  vpc_name                     = "my-vpc"
+  private_subnet_cidr_1        = "10.0.2.0/24"
+  private_subnet_az_1          = "eu-west-1a"
+  private_subnet_cidr_2        = "10.0.3.0/24"
+  private_subnet_az_2          = "eu-west-1b"  # Ensure this is a different AZ
 }
+
 
 module "iam" {
   source = "./modules/iam"
@@ -31,11 +32,15 @@ module "eks" {
   cluster_role_arn = module.iam.eks_cluster_role_arn
   node_group_name  = "my-node-group"
   node_role_arn    = module.iam.eks_node_role_arn
-  subnet_ids       = [module.vpc.private_subnet_id]
+  subnet_ids       = [
+    module.vpc.private_subnet_id,
+    module.vpc.private_subnet_2_id  # Add the second subnet ID here
+  ]
   desired_size     = 1
   max_size         = 1
   min_size         = 1
 }
+
 
 output "cluster_name" {
   value = module.eks.cluster_name

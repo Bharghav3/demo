@@ -1,6 +1,6 @@
-variable "cidr_block" {}
+variable "private_subnet_cidr_1" {}
+variable "private_subnet_az_1" {}
+variable "private_subnet_cidr_2" {}
+variable "private_subnet_az_2" {}
 variable "vpc_name" {}
-variable "public_subnet_cidr" {}
-variable "public_subnet_az" {}
-variable "private_subnet_cidr" {}
-variable "private_subnet_az" {}
+variable "cidr_block" {}

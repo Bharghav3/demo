@@ -1,4 +1,4 @@
-resource "aws_eks_cluster" "my_eks" {
+resource "aws_eks_cluster" "my-eks-cluster" {
   name     = var.cluster_name
   role_arn = var.cluster_role_arn
 
