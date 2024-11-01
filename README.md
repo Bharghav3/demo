@@ -113,7 +113,7 @@ Use the following commands to interact with the deployed resources:
 ## Troubleshooting
 
 ### 1. AWS Errors
-Nodes are not connecting to EKS Cluster
+Instances failed to join the kubernetes cluster
 
 ### 2. Terraform Errors
 Check Terraform permissions on the AWS IAM user and verify the AWS region configuration.
