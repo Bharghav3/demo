@@ -67,6 +67,8 @@ jobs:
 
       - name: Deploy to EKS
         run: |
+          cd ..
+          ls -la
           helm upgrade --install myapp ./myapp --namespace myapp --create-namespace \
           --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
           --set image.tag=latest
