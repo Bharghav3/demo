@@ -57,21 +57,21 @@ jobs:
           cd terraform
           terraform init
 
-      - name: Terraform Apply
-        run: |
-          cd terraform
-          terraform apply -auto-approve
+      # - name: Terraform Apply
+      #   run: |
+      #     cd terraform
+      #     terraform apply -auto-approve
 
-      - name: Update kubeconfig
-        run: |
-          aws eks --region eu-west-1 update-kubeconfig --name my-eks-cluster
+      # - name: Update kubeconfig
+      #   run: |
+      #     aws eks --region eu-west-1 update-kubeconfig --name my-eks-cluster
 
-      - name: Deploy to EKS
-        run: |
-          helm upgrade --install myapp ./myapp-chart --namespace myapp --create-namespace \
-          --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
-          --set image.tag=latest
-          
+      # - name: Deploy to EKS
+      #   run: |
+      #     helm upgrade --install myapp ./myapp-chart --namespace myapp --create-namespace \
+      #     --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
+      #     --set image.tag=latest
+
       - name: Terraform Destroy
         run: |
           cd terraform
