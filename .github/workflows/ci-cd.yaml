@@ -69,6 +69,6 @@ jobs:
         run: |
           cd ..
           ls -la
-          helm upgrade --install myapp ./myapp --namespace myapp --create-namespace \
+          helm upgrade --install myapp ./myapp-chart --namespace myapp --create-namespace \
           --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
           --set image.tag=latest
