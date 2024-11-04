@@ -81,7 +81,6 @@ jobs:
           --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
           --set image.tag=latest
 
-jobs:
   destroy:
     name: Destroy
     runs-on: ubuntu-latest
