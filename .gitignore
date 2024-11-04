@@ -33,5 +33,24 @@ build/
 .vscode/
 
 ### Terraform ###
-.terraform/
 *.exe
+
+# Local .terraform directory
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Backup files
+*.tfstate.backup
+
+# Plan files
+*.tfplan
+
+# Crash log files
+crash.log
+
+# Ignore any other sensitive files
+*.pem
+*.private
