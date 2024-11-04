@@ -48,8 +48,8 @@ In your GitHub repository, go to **Settings > Secrets and variables > Actions** 
 - **`AWS_ACCESS_KEY_ID`**: Your AWS IAM user’s access key ID.
 - **`AWS_SECRET_ACCESS_KEY`**: Your AWS IAM user’s secret access key.
 - **`AWS_ACCOUNT_ID`**: Your AWS account ID (e.g., `123456789012`).
-- **`AWS_REGION`**: The AWS region for your resources (e.g., `us-west-2`).
-- **`EKS_CLUSTER_NAME`**: The name of your EKS cluster (e.g., `my-java-app-cluster`).
+- **`AWS_REGION`**: The AWS region for your resources (e.g., `eu-west-1`).
+- **`EKS_CLUSTER_NAME`**: The name of your EKS cluster (e.g., `my-eks-cluster`).
 
 ### 3. AWS Credentials Configuration for Local Development (Optional)
 To test locally, configure AWS credentials on your machine. Run:
@@ -62,29 +62,25 @@ Follow the prompts to set up your `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, 
 
 ---
 
-## GitHub Actions Workflow Explanation
+## GitHub Actions Workflow Explanation: `.github/workflows/ci-cd.yaml`
 
-### CI Workflow: `.github/workflows/ci.yaml`
+### CI Workflow: 
 This workflow is triggered on any push or pull request to the `main` branch. It performs the following actions:
 1. **Checks out** the repository.
 2. **Builds** the Java application with Maven.
 3. **Builds** a Docker image and **pushes** it to Amazon ECR.
 4. **Runs tests** on the codebase.
 
-### CD Workflow: `.github/workflows/cd.yaml`
+### CD Workflow:
 This workflow is triggered on any push to the `main` branch and includes:
 1. **Provisioning infrastructure** on AWS using Terraform:
    - A VPC with public and private subnets.
    - An EKS cluster with worker nodes.
 2. **Deploying** the application to the EKS cluster using Helm.
 
-### Running the Workflows Locally (Optional)
-To run the workflows locally, install [act](https://github.com/nektos/act), a tool for running GitHub Actions locally, and run:
-
-```bash
-act push -W .github/workflows/ci.yaml
-act push -W .github/workflows/cd.yaml
-```
+### Destroy Workflow: `.github/workflows/destroy.yaml`
+This workflow is triggered manually and includes:
+1. **Destroying infrastructure** on AWS using Terraform:
 
 ---
 
@@ -113,10 +109,10 @@ Use the following commands to interact with the deployed resources:
 ## Troubleshooting
 
 ### 1. AWS Errors
-Instances failed to join the kubernetes cluster
+Node Failure: Instances failed to join the kubernetes cluster. VPC should be attached to IGW and NAT. Also, required IAM Permission must be attached.
 
-### 2. Terraform Errors
-Check Terraform permissions on the AWS IAM user and verify the AWS region configuration.
+### 2. Application Accessibilty 
+Add the ClusterIP in the Local Host to access the applciation locally.
 
 ---
 
